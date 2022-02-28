@@ -122,7 +122,7 @@ if __name__ == '__main__':
     p = Plateau(7, 5)
     p.ajoute_piece(0, 2)
     p.ajoute_piece(1, 1)
-    p.ajoute_piece(4, 2)
+    p.ajoute_piece(4, 1)
 
     for _ in range(3):
         p.ajoute_piece(2, 1)

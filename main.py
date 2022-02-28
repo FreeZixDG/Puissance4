@@ -1,3 +1,6 @@
+from random import shuffle
+
+
 class Plateau:
     def __init__(self, colonne: int, ligne: int):
         if colonne <= 0 or ligne <= 0: raise AttributeError('Must be positive lenght.')
@@ -117,19 +120,25 @@ class Plateau:
 
         return 0
 
+    def joue_aleatoire(self, e: int):
+        """
+        Joue un coup aléatoire
+        :param e: equipe
+        :return: True si le coup est validé, False sinon
+        """
+        coup_possibles = list(range(0, self._colonne))
+        shuffle(coup_possibles)
+        coup = coup_possibles[-1]
+        while not self.ajoute_piece(coup, e):
+            coup_possibles.pop()
+            if not coup_possibles:
+                return False
+            coup = coup_possibles[-1]
+        return True
+
 
 if __name__ == '__main__':
     p = Plateau(7, 5)
-    p.ajoute_piece(0, 2)
-    p.ajoute_piece(1, 1)
-    p.ajoute_piece(4, 1)
-
-    for _ in range(3):
-        p.ajoute_piece(2, 1)
-        p.ajoute_piece(3, 1)
-        p.ajoute_piece(5, 2)
-        p.ajoute_piece(1, 1)
-        p.ajoute_piece(4, 1)
-    p.ajoute_piece(5, 2)
-    p.show(indication_coord=True)
+    print(p.joue_aleatoire(1))
+    p.show(indication_coord=False)
     print(p.est_gagnant(4, 1, 1))
